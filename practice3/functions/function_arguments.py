@@ -5,23 +5,27 @@ my_function("ayana")
 my_function('anaya')
 
 #2
-def subt(a, b):
-    return a - b
-print(subt(29, 12))
+def my_function(name, /):
+  print("Hello", name)
+
+my_function("Emil")  # элементы до '/' только pos args
 
 #3
-def mult(a, b):
-    return a * b
-print(mult(5, 11))
+def my_function(animal, name):
+  print("I have a", animal)
+  print("My", animal + "'s name is", name)
+
+my_function(animal = "dog", name = "Buddy")  #keyword arg
 
 #4
-def max(a, b):
-    if a > b:
-        return a
-    return b
-print(max(120, 12))
+def my_function(animal, name):
+  print("I have a", animal)
+  print("My", animal + "'s name is", name)
+
+my_function("dog", "Buddy")  #positional arg
 
 #5
-def length(s):
-    return len(s)
-print(length('hello'))
+def my_function(animal, name, age):
+  print("I have a", age, "year old", animal, "named", name)
+
+my_function("dog", name = "Buddy", age = 5)
