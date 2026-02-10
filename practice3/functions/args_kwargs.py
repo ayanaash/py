@@ -24,5 +24,5 @@ f(x=10, y=20)   #x 10, y 20
 
 #5
 def f(**data):
-    print(kwargs.get('name'))
+    print(data.get('name'))
 f(name = 'Ayana', age = 17)  #'Ayana'
