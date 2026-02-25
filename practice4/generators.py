@@ -1,76 +1,51 @@
 #1
-class MyNumbers:
-  def __iter__(self):
-    self.a = 1
-    return self
+n=int(input())
+def my_func(n):
+    for i in range(1,n+1):
+        yield i*i 
 
-  def __next__(self):
-    x = self.a
-    self.a += 1
-    return x
+for i in my_func(n):
+    print(i)
 
-myclass = MyNumbers()
-myiter = iter(myclass)
-
-print(next(myiter))
-print(next(myiter))
-print(next(myiter))  #1, 2, 3
- 
 
 #2
-class MyNumbers:
-  def __iter__(self):
-    self.a = 1
-    return self
+n=int(input())
+def my_func(n):
+    for i in range(0,n+1):
+        if i%2==0:
+            yield i
 
-  def __next__(self):
-    if self.a <= 20:
-      x = self.a
-      self.a += 1
-      return x
-    else:
-      raise StopIteration
-
-myclass = MyNumbers()
-myiter = iter(myclass)
-
-for x in myiter:
-  print(x)    #1 - 20
+print(", ".join(str(i) for i in my_func(n)))
 
 
 #3
-def count_up_to(n):
-  count = 1
-  while count <= n:
-    yield count
-    count += 1
+n=int(input())
+def my_func(n):
+    for i in range(0,n+1):
+        if i%3==0 and i%4==0:
+            yield i 
 
-for num in count_up_to(5):
-  print(num)    #1, 2, 3, 4, 5
+for i in my_func(n):
+    print(i)
+
   
 
 #4
-def fibonacci():
-  a, b = 0, 1
-  while True:
-    yield a
-    a, b = b, a + b
+a=int(input())
+b=int(input())
+def squares(a,b):
+    for i in range(a,b+1):
+        yield i*i 
 
-# Get first 100 Fibonacci numbers
-gen = fibonacci()
-for _ in range(100):
-  print(next(gen))
+for i in squares(a,b):
+    print(i)
 
 
 #5
-def my_gen():
-  try:
-    yield 1
-    yield 2
-    yield 3
-  finally:
-    print("Generator closed")
+n=int(input())
+def my_func(n):
+    for i in range(n,-1,-1):
+        yield i 
 
-gen = my_gen()
-print(next(gen))
-gen.close() 
+for i in my_func(n):
+    print(i)
