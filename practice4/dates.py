@@ -1,38 +1,33 @@
 #1
 import datetime
 
-x = datetime.datetime.now()
-print(x)
+today=datetime.date.today()
+print(today-datetime.timedelta(days=5))
 
 
 #2
 import datetime
 
-x = datetime.datetime.now()
-
-print(x.year)
-print(x.strftime("%A"))
+x=datetime.datetime.now()
+today=datetime.date.today()
+yesterday=today-datetime.timedelta(days=1)
+tomorrow=today+datetime.timedelta(days=1)
+print("Yesterday: ", yesterday)
+print("Today: ", x)
+print("Tomorrow: ", tomorrow)
 
 
 #3
 import datetime
 
-x = datetime.datetime(2020, 5, 17)
-
-print(x)
+now=datetime.datetime.now()
+print(now.replace(microsecond=0))
 
 
 #4
 import datetime
 
-x = datetime.datetime(2018, 6, 1)
+d1=datetime.datetime(2026,2,25,9,0,0)
+d2=datetime.datetime(2026,2,25,10,0,0)
 
-print(x.strftime("%B"))
-
-
-#5
-import datetime
-
-x = datetime.datetime(2018, 6, 1)
-
-print(x.strftime("%b"))
+print((d2-d1).total_seconds())   #3600
