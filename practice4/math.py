@@ -1,38 +1,31 @@
 #1
 import math
-
-x = math.sqrt(64)
-
-print(x)
+degree = float(input())
+radian = degree * math.pi/180
+print(radian)
 
 
 #2
 import math
+h = float(input())
+a = float(input())
+b = float(input())
 
-x = math.ceil(1.4)
-y = math.floor(1.4)
-
-print(x) # returns 2
-print(y) # returns 1
+area=(a+b)/2 * h
+print(area)
 
 
 #3
 import math
+n=int(input())
+s=float(input())
+area=(n*s*s)/(4*math.tan(math.pi/n))
+print("Area of the pol: ",area)
 
-x = math.pi
-
-print(x)
 
 
 #4
-x = min(5, 10, 25)
-y = max(5, 10, 25)
-
-print(x)
-print(y)
-
-
-#5
-x = pow(4, 3)
-
-print(x)
+a = float(input())
+h = float(input())
+area = a*h
+print(area)
