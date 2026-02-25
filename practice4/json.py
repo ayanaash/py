@@ -1,59 +1,20 @@
 #1
 import json
 
-# some JSON:
-x =  '{ "name":"John", "age":30, "city":"New York"}'
+with open("sample-data.json") as f:
+    data = json.load(f)
 
-# parse x:
-y = json.loads(x)
+print("Interface Status")
+print("=" * 80)
+print(f"{'DN':50} {'Description':20} {'Speed':7} {'MTU':6}")
+print("-" * 80)
 
-# the result is a Python dictionary:
-print(y["age"])   #30
-
-
-#2
-import json
-
-data = {"name": "Ayana", "age": 16, "city": "Almaty"}
-
-print(json.dumps(data))
-
-
-#3
-import json
-
-# a Python object (dict):
-x = {
-  "name": "John",
-  "age": 30,
-  "city": "New York"
-}
-
-# convert into JSON:
-y = json.dumps(x)
-
-# the result is a JSON string:
-print(y)
-
-
-#4
-import json
-
-print(json.dumps({"name": "John", "age": 30}))
-print(json.dumps(["apple", "bananas"]))
-print(json.dumps(("apple", "bananas")))
-print(json.dumps("hello"))
-print(json.dumps(42))
-print(json.dumps(31.76))
-print(json.dumps(True))
-print(json.dumps(False))
-print(json.dumps(None))
-
-
-#5
-import json
-
-data = {"isStudent": True, "hasCar": False}
-
-print(json.dumps(data))
-#{"isStudent": true, "hasCar": false}
+for item in data["imdata"]:
+    attributes = item["l1PhysIf"]["attributes"]
+    
+    dn = attributes["dn"]
+    descr = attributes.get("descr", "")
+    speed = attributes["speed"]
+    mtu = attributes["mtu"]
+    
+    print(f"{dn:50} {descr:20} {speed:7} {mtu:6}")
