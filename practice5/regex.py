@@ -18,7 +18,7 @@ else:
 import re
 s = input()
 matches = re.findall(r'[a-z]+_[a-z]+', s)
-print(matches)  #python
+print(matches)  #py_thon
 
 #4
 import re
@@ -61,4 +61,4 @@ print(result)   #HelloWorld -> Hello World
 import re
 s = input()
 snake = re.sub(r'([A-Z])', r'_\1', s).lower()
-print(snake)   #helloWorld -> hello_world
+print(snake)   #helloWorld -> _hello_world
