@@ -1,2 +1,4 @@
-with open('pyt.txt') as f:
-    print(f.read())
+hello
+this is a text file
+python practice
+testing bye
