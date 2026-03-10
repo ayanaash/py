@@ -1,4 +1,0 @@
-hello
-this is a text file
-python practice testing
-bye
