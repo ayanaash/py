@@ -1,21 +1,21 @@
-import csv
-from connect import connect
+import csv  #to read data from file
+from connect import connect  #connect to database
 
 
 #1 insert from CSV
 def insert_from_csv():
-    conn = connect()
-    cur = conn.cursor()
+    conn = connect()   #соеденение с базой
+    cur = conn.cursor()   #инструмент для выполнения sql запросво
 
     with open("contacts.csv", "r") as file:
-        reader = csv.DictReader(file)
+        reader = csv.DictReader(file)   #csv читается как dictionary
         for row in reader:
-            cur.execute(
-                "INSERT INTO phonebook (first_name, phone) VALUES (%s, %s)",
+            cur.execute(    #выполняем запрос
+                "INSERT INTO phonebook (first_name, phone) VALUES (%s, %s)",   #transfer data (передача значений)
                 (row["first_name"], row["phone"])
             )
 
-    conn.commit()
+    conn.commit()    #save changes
     cur.close()
     conn.close()
     print("Data inserted from CSV!")
@@ -42,20 +42,20 @@ def insert_from_console():
 
 #3 update
 def update_contact():
-    name = input("Enter name to update: ")
-    new_name = input("New name (Enter to skip): ")
-    new_phone = input("New phone (Enter to skip): ")
+    name = input("Enter name to update: ")   #person/name who we are updating (кого обновляем)
+    new_name = input("New name: ")   #можно скипнуть
+    new_phone = input("New phone: ")   #новый номер
 
     conn = connect()
     cur = conn.cursor()
 
-    if new_name:
+    if new_name:   #обновляем имя
         cur.execute(
             "UPDATE phonebook SET first_name=%s WHERE first_name=%s",
             (new_name, name)
         )
 
-    if new_phone:
+    if new_phone:    #обновляем номер тел
         cur.execute(
             "UPDATE phonebook SET phone=%s WHERE first_name=%s",
             (new_phone, name)
@@ -75,11 +75,11 @@ def search_contacts():
     cur = conn.cursor()
 
     cur.execute(
-        "SELECT * FROM phonebook WHERE first_name ILIKE %s OR phone LIKE %s",
-        (f"%{keyword}%", f"{keyword}%")
+        "SELECT * FROM phonebook WHERE first_name ILIKE %s OR phone LIKE %s",     #ilike = name, like = phone
+        (f"%{keyword}%", f"{keyword}%")   # %...% - содержит,  ...% - начинается с
     )
 
-    results = cur.fetchall()
+    results = cur.fetchall()   #получаем все найденные строки
 
     if results:
         for row in results:
@@ -93,17 +93,17 @@ def search_contacts():
 
 #5 delete
 def delete_contact():
-    choice = input("Delete by (1) name or (2) phone: ")
+    choice = input("Delete by (1) name or (2) phone: ")   #выбор пользователя (по имени или по номеру)
 
     conn = connect()
     cur = conn.cursor()
 
     if choice == "1":
         name = input("Enter name: ")
-        cur.execute("DELETE FROM phonebook WHERE first_name=%s", (name,))
+        cur.execute("DELETE FROM phonebook WHERE first_name=%s", (name,))   #удалить по имени
     elif choice == "2":
         phone = input("Enter phone: ")
-        cur.execute("DELETE FROM phonebook WHERE phone=%s", (phone,))
+        cur.execute("DELETE FROM phonebook WHERE phone=%s", (phone,))    #удалить по номеру
 
     conn.commit()
     cur.close()
@@ -138,5 +138,5 @@ def main():
             break
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":    #файл запущен напрямую
     main()
