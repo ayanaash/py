@@ -18,13 +18,13 @@ def insert_from_csv():
     conn.commit()    #save changes
     cur.close()
     conn.close()
-    print("Data inserted from CSV!")
+    print("data inserted from CSV")
 
 
 #2 insert from cons(input)
 def insert_from_console():
-    name = input("Enter name: ")
-    phone = input("Enter phone: ")
+    name = input("enter name: ")
+    phone = input("enter phone: ")
 
     conn = connect()
     cur = conn.cursor()
@@ -37,14 +37,14 @@ def insert_from_console():
     conn.commit()
     cur.close()
     conn.close()
-    print("Contact added!")
+    print("added")
 
 
 #3 update
 def update_contact():
-    name = input("Enter name to update: ")   #person/name who we are updating (кого обновляем)
-    new_name = input("New name: ")   #можно скипнуть
-    new_phone = input("New phone: ")   #новый номер
+    name = input("enter name to update: ")   #person/name who we are updating (кого обновляем)
+    new_name = input("new name: ")  
+    new_phone = input("new phone: ")   
 
     conn = connect()
     cur = conn.cursor()
@@ -64,12 +64,12 @@ def update_contact():
     conn.commit()
     cur.close()
     conn.close()
-    print("Updated!")
+    print("updated")
 
 
 #4 search
 def search_contacts():
-    keyword = input("Enter name or phone prefix: ")
+    keyword = input("enter name or phone: ")
 
     conn = connect()
     cur = conn.cursor()
@@ -99,30 +99,29 @@ def delete_contact():
     cur = conn.cursor()
 
     if choice == "1":
-        name = input("Enter name: ")
+        name = input("enter name: ")
         cur.execute("DELETE FROM phonebook WHERE first_name=%s", (name,))   #удалить по имени
     elif choice == "2":
-        phone = input("Enter phone: ")
+        phone = input("enter phone: ")
         cur.execute("DELETE FROM phonebook WHERE phone=%s", (phone,))    #удалить по номеру
 
     conn.commit()
     cur.close()
     conn.close()
-    print("Deleted!")
+    print("deleted")
 
 
 
 def main():
     while True:
-        print("\n--- PHONEBOOK ---")
-        print("1. Import from CSV")
-        print("2. Add contact")
-        print("3. Update contact")
-        print("4. Search")
-        print("5. Delete")
-        print("0. Exit")
+        print("1. import from CSV")
+        print("2. add contact")
+        print("3. update contact")
+        print("4. search")
+        print("5. delete")
+        print("0. exit")
 
-        choice = input("Choose: ")
+        choice = input("choose: ")
 
         if choice == "1":
             insert_from_csv()
