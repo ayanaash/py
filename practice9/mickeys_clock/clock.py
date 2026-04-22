@@ -21,7 +21,6 @@ class MickeyClock:
 
         self.mickey = pygame.image.load(os.path.join(base_path, "images", "mickeybody.png")).convert_alpha()   #загружаем микки
         self.right_hand = pygame.image.load(os.path.join(base_path, "images", "right_hand.png")).convert_alpha() #conv alpha - сохраняет прозрачность
-         
         self.left_hand = pygame.image.load(os.path.join(base_path, "images", "left_hand.png")).convert_alpha()
 
         self.center = Vector2(self.WIDTH // 2, self.HEIGHT // 2)
