@@ -54,7 +54,7 @@ class Snake:
     def check_wall_collision(self):
         x, y = self.body[0]
         return x < 0 or x >= WIDTH or y < 0 or y >= HEIGHT  #если вышли за экран → проигрыш
-
+               #влево      вправо      вверх     вниз
 
 class Food:
     def __init__(self, snake_body):

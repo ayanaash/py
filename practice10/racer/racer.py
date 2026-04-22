@@ -2,35 +2,34 @@ import pygame
 import random
 import sys
 
-# Инициализация pygame
 pygame.init()
 
-# Размер окна
+
 WIDTH, HEIGHT = 500, 700
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Racer Game")
 
-# FPS
+
 clock = pygame.time.Clock()
 FPS = 60
 
-# Цвета
+
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 YELLOW = (255, 215, 0)
 RED = (200, 0, 0)
 
-# Игрок (машина)
+#машина
 player_width = 50
 player = pygame.Rect(WIDTH // 2, HEIGHT - 100, player_width, 80)
 player_speed = 6
 
-# Монеты
+#монеты
 coin_size = 20
 coins = []  # список всех монет на экране
 coin_spawn_timer = 0
 
-# Счётчик
+
 score = 0
 font = pygame.font.SysFont("Arial", 24)
 
@@ -54,8 +53,11 @@ def move_coins():
     for coin in coins:
         coin.y += 5
 
-    #удаление монет которые ушли за экран
-    coins = [c for c in coins if c.y < HEIGHT]
+    #удаление монет которые ушли за экран (создаем новый список)
+    coins = [
+    c for c in coins   
+    if c.y < HEIGHT] # только если она на экране
+
 
 
 running = True

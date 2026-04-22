@@ -10,18 +10,18 @@ pygame.display.set_caption("Moving Ball Game") #название окна све
 
 clock = pygame.time.Clock()
 
-# создаём шар
+#создание шара
 ball = Ball(WIDTH // 2, HEIGHT // 2, screen_width=WIDTH, screen_height=HEIGHT)
 
 running = True
 while running:
-    screen.fill((255, 255, 255))  # белый фон
+    screen.fill((255, 255, 255)) 
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
 
-    # управление стрелками
+    #управление стрелками
     keys = pygame.key.get_pressed()
 
     if keys[pygame.K_LEFT]:
@@ -33,11 +33,11 @@ while running:
     if keys[pygame.K_DOWN]:
         ball.move(0, 1)
 
-    # рисуем шар
+   
     ball.draw(screen)
 
     pygame.display.flip()
-    clock.tick(60)  # FPS
+    clock.tick(60)  
 
 pygame.quit()
 sys.exit()
