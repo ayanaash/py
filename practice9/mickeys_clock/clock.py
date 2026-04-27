@@ -38,7 +38,7 @@ class MickeyClock:
         running = True
 
         while running:
-            self.clock.tick(1)  # обновление раз в секунду
+            self.clock.tick(1)  #обновление раз в секунду
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:

@@ -14,7 +14,7 @@ class Ball:
         new_x = self.x + dx * self.speed   #dx - left/right
         new_y = self.y + dy * self.speed   #dy - up/down
 
-        # проверка границ (чтобы шар не выходил за экран)
+        #проверка границ (чтобы шар не выходил за экран)
         if self.radius <= new_x <= self.screen_width - self.radius:
             self.x = new_x
 
