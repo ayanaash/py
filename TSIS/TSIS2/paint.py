@@ -26,7 +26,7 @@ brush_size = brush_sizes[2]
 
 tool = "pencil"
 
-drawing = False
+drawing = False   #нажата ли мышь
 start_pos = None
 last_pos = None
 
@@ -38,7 +38,7 @@ text_pos = (0, 0)
 
 #main loop
 while True:
-    screen.blit(canvas, (0, 0))
+    screen.blit(canvas, (0, 0))  #копирование canvas на экран
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -71,7 +71,7 @@ while True:
                 tool = "text"
 
             #save
-            if event.key == pygame.K_s and pygame.key.get_mods() & pygame.KMOD_CTRL:
+            if event.key == pygame.K_s and pygame.key.get_mods() & pygame.KMOD_CTRL:   #Ctrl+S
                 filename = datetime.now().strftime("drawing_%Y%m%d_%H%M%S.png")
                 pygame.image.save(canvas, filename)
                 print("Saved:", filename)
@@ -118,7 +118,7 @@ while True:
             if tool == "circle":
                 draw_circle(canvas, color, start_pos, end_pos, brush_size)
 
-        if event.type == pygame.MOUSEMOTION and drawing:
+        if event.type == pygame.MOUSEMOTION and drawing:   #используется только для карандаша
             if tool == "pencil":
                 draw_pencil(canvas, color, last_pos, event.pos, brush_size)
                 last_pos = event.pos
@@ -128,5 +128,5 @@ while True:
         preview = font.render(text_input, True, color)
         screen.blit(preview, text_pos)
 
-    pygame.display.flip()
+    pygame.display.flip()  #обновление экрана
     clock.tick(60)
