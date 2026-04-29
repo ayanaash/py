@@ -9,14 +9,14 @@ AS $$
 DECLARE
     cid INTEGER;
 BEGIN
-    SELECT id INTO cid FROM contacts WHERE name = p_contact_name;
+    SELECT id INTO cid FROM contacts WHERE name = p_contact_name;   --ищем контакт
 
-    IF cid IS NULL THEN
+    IF cid IS NULL THEN  --если не нашли
         RAISE NOTICE 'Contact not found';
         RETURN;
     END IF;
 
-    INSERT INTO phones(contact_id, phone, type)
+    INSERT INTO phones(contact_id, phone, type)  --добавляем
     VALUES (cid, p_phone, p_type);
 END;
 $$;
@@ -54,7 +54,7 @@ $$;
 
 --search contacts
 CREATE OR REPLACE FUNCTION search_contacts(p_query TEXT)
-RETURNS TABLE(name TEXT, email TEXT, phone TEXT)
+RETURNS TABLE(name TEXT, email TEXT, phone TEXT)   --показать табл
 LANGUAGE plpgsql
 AS $$
 BEGIN
@@ -62,7 +62,7 @@ BEGIN
     SELECT c.name, c.email, p.phone
     FROM contacts c
     LEFT JOIN phones p ON c.id = p.contact_id
-    WHERE c.name ILIKE '%' || p_query || '%'
+    WHERE c.name ILIKE '%' || p_query || '%'   --поиск по части строки
        OR c.email ILIKE '%' || p_query || '%'
        OR p.phone ILIKE '%' || p_query || '%';
 END;

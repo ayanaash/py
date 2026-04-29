@@ -8,18 +8,18 @@ def add_contact(name, email, birthday, group_name):
     cur = conn.cursor()
 
     #group
-    cur.execute("SELECT id FROM groups WHERE name=%s", (group_name,))
+    cur.execute("SELECT id FROM groups WHERE name=%s", (group_name,))  #ищем группу
     g = cur.fetchone()
 
     if g is None:
-        cur.execute("INSERT INTO groups(name) VALUES(%s) RETURNING id", (group_name,))
+        cur.execute("INSERT INTO groups(name) VALUES(%s) RETURNING id", (group_name,))  #создаём 
         group_id = cur.fetchone()[0]
     else:
         group_id = g[0]
 
     #contact
     cur.execute("""
-        INSERT INTO contacts(name, email, birthday, group_id)
+        INSERT INTO contacts(name, email, birthday, group_id)   добавляем контакт, если есть то нет
         VALUES (%s, %s, %s, %s)
         ON CONFLICT (name) DO NOTHING
     """, (name, email, birthday, group_id))
@@ -39,7 +39,7 @@ def search_contacts_console():
     sort = input("Sort (name/birthday/created_at): ")
 
     page = 0
-    limit = 3
+    limit = 3   #пагинация (3 записи на страницу)
 
     while True:
         offset = page * limit
@@ -53,7 +53,7 @@ def search_contacts_console():
 
         params = [f"%{query}%", f"%{query}%"]
 
-        if group:
+        if group:   #фильтр по группе
             sql += " AND g.name = %s"
             params.append(group)
 
@@ -106,7 +106,7 @@ def export_json():
     for r in rows:
         name = r[0]
 
-        if name not in data:
+        if name not in data:   #создание структуры контакта
             data[name] = {
                 "email": r[1],
                 "birthday": str(r[2]),
@@ -115,7 +115,7 @@ def export_json():
             }
 
         if r[4]:
-            data[name]["phones"].append({
+            data[name]["phones"].append({    #добавление телефона в список
                 "number": r[4],
                 "type": r[5]
             })
@@ -139,19 +139,19 @@ def import_json():
 
     for name, info in data.items():
 
-        cur.execute("SELECT id FROM contacts WHERE name=%s", (name,))
+        cur.execute("SELECT id FROM contacts WHERE name=%s", (name,))   #проверка есть ли уже контакт
         exists = cur.fetchone()
 
         if exists:
-            choice = input(f"{name} exists (skip/overwrite): ")
+            choice = input(f"{name} exists (skip/overwrite): ")  #поиск, ввод
             if choice == "skip":
                 continue
             else:
-                cur.execute("DELETE FROM contacts WHERE name=%s", (name,))
+                cur.execute("DELETE FROM contacts WHERE name=%s", (name,))  #удаление старого контакта
 
         add_contact(name, info["email"], info["birthday"], info["group"])
 
-        for p in info["phones"]:
+        for p in info["phones"]:   #теперь добавляем телефоны
             cur.execute("CALL add_phone(%s,%s,%s)", (name, p["number"], p["type"]))
 
     conn.commit()
