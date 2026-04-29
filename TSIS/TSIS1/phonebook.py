@@ -19,7 +19,7 @@ def add_contact(name, email, birthday, group_name):
 
     #contact
     cur.execute("""
-        INSERT INTO contacts(name, email, birthday, group_id)   добавляем контакт, если есть то нет
+        INSERT INTO contacts(name, email, birthday, group_id)   
         VALUES (%s, %s, %s, %s)
         ON CONFLICT (name) DO NOTHING
     """, (name, email, birthday, group_id))
@@ -176,9 +176,10 @@ def import_csv():
             )
 
             cur.execute(
-                "CALL add_phone(%s,%s,%s)",
+                "CALL add_phone(%s::varchar, %s::varchar, %s::varchar)",
                 (row["name"], row["phone"], row["type"])
             )
+            
 
     conn.commit()
     cur.close()
