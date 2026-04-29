@@ -16,7 +16,7 @@ class Player:
         self.shield = False
 
     def move(self, direction):
-        self.lane = max(0, min(2, self.lane + direction))
+        self.lane = max(0, min(2, self.lane + direction))  #сохр границ
 
     def draw(self, screen):
         pygame.draw.rect(screen, self.color,
@@ -31,7 +31,7 @@ class Obstacle:
         self.speed = 5
 
     def update(self):
-        self.y += self.speed
+        self.y += self.speed  #вниз
 
     def draw(self, screen):
         color = (200, 0, 0) if self.type == "barrier" else (0, 0, 0)
@@ -63,8 +63,8 @@ class PowerUp:
     def update(self):
         self.y += 4
 
-    def draw(self, screen):
-        colors = {"nitro": (0,255,255), "shield": (0,255,0), "repair": (255,0,255)}
+    def draw(self, screen):   #голуб                зеленый               фиол
+        colors = {"nitro": (0,255,255) , "shield": (0,255,0), "repair": (255,0,255)}
         pygame.draw.circle(screen, colors[self.type],
                            (LANES[self.lane], int(self.y)), 20)
 
