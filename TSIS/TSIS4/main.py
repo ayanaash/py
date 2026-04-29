@@ -4,57 +4,65 @@ from game import SnakeGame
 from db import init_db, save_score, get_top_scores, get_personal_best
 
 pygame.init()
-screen = pygame.display.set_mode((600,600))
+screen = pygame.display.set_mode((600, 600))
 font = pygame.font.Font(None, 36)
 
 init_db()
 
 def draw_text(text, y):
-    surf = font.render(text, True, (255,255,255))
+    surf = font.render(text, True, (255, 255, 255))
     screen.blit(surf, (200, y))
 
 def main():
-    username = input("Enter username: ")
+    # ⚠ лучше временно заменить input на фиксированное имя
+    username = "player1"
+
     game = SnakeGame(username)
-    best = get_personal_best(username)
 
     clock = pygame.time.Clock()
-
     running = True
+    game_over = False
+
     while running:
-        screen.fill((0,0,0))
+        screen.fill((0, 0, 0))
 
         for e in pygame.event.get():
             if e.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
+                running = False
 
-            if e.type == pygame.KEYDOWN:
+            elif e.type == pygame.KEYDOWN:
                 if e.key == pygame.K_UP:
                     game.dx, game.dy = 0, -20
-                if e.key == pygame.K_DOWN:
+                elif e.key == pygame.K_DOWN:
                     game.dx, game.dy = 0, 20
-                if e.key == pygame.K_LEFT:
+                elif e.key == pygame.K_LEFT:
                     game.dx, game.dy = -20, 0
-                if e.key == pygame.K_RIGHT:
+                elif e.key == pygame.K_RIGHT:
                     game.dx, game.dy = 20, 0
 
-        alive = game.update()
-        game.draw(screen)
+        if not game_over:
+            alive = game.update()
 
-        draw_text(f"Score: {game.score}", 10)
-        draw_text(f"Best: {best}", 40)
+            if not alive:
+                game_over = True
+                save_score(username, game.score, game.level)
 
-        if not alive:
-            save_score(username, game.score, game.level)
-            print("GAME OVER")
-            print("TOP 10:")
+            game.draw(screen)
+
+            draw_text(f"Score: {game.score}", 10)
+
+        else:
+            draw_text("GAME OVER", 200)
+
+            y = 250
             for row in get_top_scores():
-                print(row)
-            pygame.quit()
-            break
+                draw_text(str(row), y)
+                y += 30
 
         pygame.display.flip()
         clock.tick(10)
+
+    pygame.quit()
+    sys.exit()
 
 main()

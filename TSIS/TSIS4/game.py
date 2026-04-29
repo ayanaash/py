@@ -49,7 +49,7 @@ class SnakeGame:
                 self.obstacles.append(pos)
 
     def update(self):
-        head = (self.snake[0][0] + self.dx, self.snake[0][1] + self.dy)
+        head = (self.snake[0][0] + self.dx, self.snake[0][1] + self.dy)   #поз головы
 
         # collisions
         if head in self.snake or head in self.obstacles:
